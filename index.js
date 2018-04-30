@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const userMiddleware = (req, res, next) => {
-  if (req.body.name && req.body.birthday) next();
+  if (req.body.name && req.body.birthday) return next();
   else return res.render('main');
 };
 
