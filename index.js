@@ -18,11 +18,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const userMiddleware = (req, res, next) => {
   if (req.body.name && req.body.birthday) next();
-  else res.render('main');
+  else return res.render('main');
 };
 
 app.get('/', (req, res) => {
-  res.render('main');
+  return res.render('main');
 });
 
 app.post('/check', userMiddleware, (req, res) => {
@@ -33,17 +33,17 @@ app.post('/check', userMiddleware, (req, res) => {
   const idade = moment().diff(moment(birthday, 'YYYY/MM/DD'), 'years');
 
   if (idade >= 18) {
-    res.render('major', { name });
+    return res.render('major', { name });
   } else {
-    res.render('minor', { name });
+    return res.render('minor', { name });
   }
 });
 
 app.get('/major', (req, res) => {
-  res.redirect('/');
+  return res.redirect('/');
 });
 app.get('/minor', (req, res) => {
-  res.redirect('/');
+  return res.redirect('/');
 });
 
 app.listen(3000);
